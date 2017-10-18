@@ -12,6 +12,8 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+/*---- Middleware ---- */
+
 //Enables cookies inside the application
 app.use(
   cookieSession({
@@ -19,6 +21,7 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+
 //Indicates to passport to use cookies to manage authentication
 app.use(passport.initialize());
 app.use(passport.session());
