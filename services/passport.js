@@ -22,17 +22,26 @@ passport.use(
       callbackURL: '/auth/google/callback',
       proxy: true
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          done(null, existingUser);
-        } else {
-          //Creates a model instance and saves to database
-          new User({ googleId: profile.id })
-            .save()
-            .then(user => done(null, user));
-        }
-      });
+    async (accessToken, refreshToken, profile, done) => {
+      /* Alternative code using promises: */
+      // User.findOne({ googleId: profile.id }).then(existingUser => {
+      //   if (existingUser) {
+      //     done(null, existingUser);
+      //   } else {
+      //     //Creates a model instance and saves to database
+      //     new User({ googleId: profile.id })
+      //       .save()
+      //       .then(user => done(null, user));
+      //   }
+      // });
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        done(null, existingUser);
+      } else {
+        //Creates a model instance and saves to database
+        const user = await new User({ googleId: profile.id }).save();
+        done(null, user);
+      }
     }
   )
 );
