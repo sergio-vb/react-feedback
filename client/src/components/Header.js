@@ -8,7 +8,7 @@ class Header extends React.Component {
       //Content for logged-in user
       return (
         <li>
-          <a href="/api/logout">Sign Out</a>
+          <a href="/api/logout">Log Out</a>
         </li>
       );
     } else if (auth === false) {

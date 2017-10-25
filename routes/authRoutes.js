@@ -8,11 +8,17 @@ module.exports = app => {
       scope: ['profile', 'email'] //Permissions that we are asking for, from a user's information - Not necessary for this app.
     })
   );
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/surveys');
+    }
+  );
 
   app.get('/api/logout', (req, res) => {
     req.logout(); //Function added to the request object by Passport, removes the cookie
-    res.send(req.user);
+    res.redirect('/');
   });
 
   app.get('/api/current_user', (req, res) => {
