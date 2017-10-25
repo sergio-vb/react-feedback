@@ -4,8 +4,9 @@ import { FETCH_USER } from './types';
 
 export const fetchUser = () => async dispatch => {
   console.log('FetchUser action creator called.');
+  const res = await axios.get('/api/current_user');
   dispatch({
     type: FETCH_USER,
-    payload: await axios.get('/api/current_user')
+    payload: res.data
   });
 };
