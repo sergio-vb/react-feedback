@@ -31,7 +31,7 @@ class Header extends React.Component {
             to={this.props.auth ? '/surveys' : '/'}
             className="brand-logo left"
           >
-            SmartSurveys
+            Smart Surveys
           </Link>
           <ul id="nav-mobile" className="right">
             {this.renderNavContent()}
