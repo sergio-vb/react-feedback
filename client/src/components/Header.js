@@ -2,16 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import StripePayments from './StripePayments';
+
 class Header extends React.Component {
   renderNavContent() {
     const { auth } = this.props;
     if (typeof auth === 'object' && auth !== null) {
       //Content for logged-in user
-      return (
-        <li>
+      return [
+        <li key="1">
+          <StripePayments />
+        </li>,
+        <li key="2">
           <a href="/api/logout">Log Out</a>
         </li>
-      );
+      ];
     } else if (auth === false) {
       //Content for user not logged-in
       return (
