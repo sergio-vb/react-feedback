@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
 const setAuthRoutes = require('./routes/authRoutes');
+const setBillingRoutes = require('./routes/billingRoutes');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
@@ -12,7 +14,9 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-/*---- Middleware ---- */
+/*---- Express Middleware, set up with app.use ---- */
+
+app.use(bodyParser.json());
 
 //Enables cookies inside the application
 app.use(
@@ -26,7 +30,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*---- Configure back end routes (request handlers) ---- */
 setAuthRoutes(app);
+setBillingRoutes(app);
 
 /*
 Environment variables injected by Heroku.
