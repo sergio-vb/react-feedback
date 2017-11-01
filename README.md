@@ -7,4 +7,4 @@ Features:
 
 Third Parties Integration:
 - Authentication through Google
-- Handling payments securely using Stripe. Integrated with React through npm library react-stripe-checkout.
+- Handling payments securely using Stripe. Integrated with React through npm library react-stripe-checkout. Validate initial request on the front end and confirms the charge authorization through the back end using a token.
