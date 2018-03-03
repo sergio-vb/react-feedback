@@ -1,48 +1,58 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import StripePayments from './StripePayments';
+
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+
+const styles = {
+  title: {
+    textDecoration: 'none',
+    color: "#fff"
+  },
+  containerRight: {
+    paddingTop: '0.4em'
+  },
+  navItem: {
+    color: '#fff',
+    padding: '0 0.3em'
+  }
+};
+
 
 class Header extends React.Component {
   renderNavContent() {
     const { auth } = this.props;
     if (typeof auth === 'object' && auth !== null) {
       //Content for logged-in user
-      return [
-        <li key="1">
+      return (
+        <div style={styles.containerRight}>
           <StripePayments />
-        </li>,
-        <li key="2">
-          <a href="/api/logout">Log Out</a>
-        </li>
-      ];
+          <FlatButton style={styles.navItem}><a href="/api/logout">Log Out</a></FlatButton>
+        </div>
+      );
     } else if (auth === false) {
       //Content for user not logged-in
       return (
-        <li>
-          <a href="/auth/google">Login With Google</a>
-        </li>
+        <div style={styles.containerRight}>
+          <FlatButton style={styles.navItem}><a href="/auth/google">Login With Google</a></FlatButton>
+        </div>
       );
     }
     return;
   }
   render() {
     console.log('Header props: ', this.props);
+
+    const appBarTitle = <Link to={this.props.auth ? '/surveys' : '/'} style={styles.title}>Survey Analizer</Link>
+
     return (
-      <nav>
-        <div className="nav-wrapper purple darken-1">
-          <Link
-            to={this.props.auth ? '/surveys' : '/'}
-            className="brand-logo left"
-          >
-            Smart Surveys
-          </Link>
-          <ul id="nav-mobile" className="right">
-            {this.renderNavContent()}
-          </ul>
-        </div>
-      </nav>
+      <AppBar
+        title={appBarTitle}
+        iconElementLeft={<div></div>}
+        iconElementRight={this.renderNavContent()}
+      />
     );
   }
 }
