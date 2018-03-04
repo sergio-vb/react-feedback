@@ -22,6 +22,7 @@ const styles = {
 
 
 class Header extends React.Component {
+  
   renderNavContent() {
     const { auth } = this.props;
     if (typeof auth === 'object' && auth !== null) {
@@ -42,15 +43,14 @@ class Header extends React.Component {
     }
     return;
   }
+  
   render() {
-    console.log('Header props: ', this.props);
-
     const appBarTitle = <Link to={this.props.auth ? '/surveys' : '/'} style={styles.title}>Survey Analizer</Link>
 
     return (
       <AppBar
         title={appBarTitle}
-        iconElementLeft={<div></div>}
+        iconElementLeft={<div/>}
         iconElementRight={this.renderNavContent()}
       />
     );

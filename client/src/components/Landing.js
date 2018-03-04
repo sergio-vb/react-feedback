@@ -15,7 +15,7 @@ const styles = {
   }
 }
 
-const Landing = () => {
+function Landing() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Survey Analizer</h1>
@@ -25,3 +25,7 @@ const Landing = () => {
 };
 
 export default Landing;
+
+// Note: Not using arrow functions to define functional components 
+// because relying on function name inference is discouraged by Airbnb's React Style Guide
+// See https://github.com/airbnb/javascript/tree/master/react

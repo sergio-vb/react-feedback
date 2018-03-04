@@ -17,19 +17,24 @@ class App extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <BrowserRouter>
-            <div>
-              <Header />
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/surveys" component={Dashboard} />
-              <Route exact path="/surveys/new" component={SurveyNew} />
-            </div>
-          </BrowserRouter>
-        </div>
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/surveys" component={Dashboard} />
+            <Route exact path="/surveys/new" component={SurveyNew} />
+          </div>
+        </BrowserRouter>
       </MuiThemeProvider>
     );
   }
 }
 
 export default connect(null, actions)(App);
+
+// Alternative use of connect and action creators:
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ fetchForecasts }, dispatch);
+// }
+
+// export default connect(null, mapDispatchToProps)(SearchBar);
