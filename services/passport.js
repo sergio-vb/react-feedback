@@ -15,13 +15,21 @@ passport.use(
     },
     //Callback to execute when authentication is successful:
     async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await User.findOne({ googleId: profile.id });
-      if (existingUser) {
-        done(null, existingUser);
-      } else {
-        //Creates a model instance and saves to database
-        const user = await new User({ googleId: profile.id }).save();
-        done(null, user);
+      console.log("Passport callback started");
+      try{
+        const existingUser = await User.findOne({ googleId: profile.id });
+        console.log("findOne Query completed, existingUser:", existingUser);
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          //Creates a model instance and saves to database
+          const user = await new User({ googleId: profile.id }).save();
+          console.log("new User .save query completed");
+          done(null, user);
+        }
+      }catch(e){
+        console.log("Passport error caught:", e);
+        done();
       }
     }
   )
