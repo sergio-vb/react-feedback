@@ -34,6 +34,18 @@ app.use(passport.session());
 setAuthRoutes(app);
 setBillingRoutes(app);
 
+if (process.env.NODE_ENV === 'production'){
+  //Serve production assets, like .js or .css files
+  //If any unrecognized request is received, check the following path for any files that match
+  app.use(express.static('client/build'));
+
+  //Serve index.html for unrecognized routes
+  const path = require('path');
+  app.get('*', (req, res => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  }));
+}
+
 /*
 Environment variables injected by Heroku.
 Environment variables are variables set by 
