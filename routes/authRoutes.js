@@ -10,6 +10,7 @@ module.exports = app => {
   );
   app.get(
     '/auth/google/callback',
+    passport.authenticate('google'), //This function is a middleware that intercepts the incoming request
     (req, res) => {
       res.redirect('/surveys');
     }
