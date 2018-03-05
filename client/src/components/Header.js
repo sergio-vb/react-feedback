@@ -12,11 +12,15 @@ const styles = {
     color: "#fff"
   },
   containerRight: {
-    paddingTop: '0.4em'
+    paddingTop: '0.4em',
+    color: '#fff'
+  },
+  flatButton: {
+    color: '#fff',
+    padding: '0 1em'
   },
   navItem: {
-    color: '#fff',
-    padding: '0 0.3em'
+    margin: '0 0.9em 0 1.5em'
   }
 };
 
@@ -29,15 +33,22 @@ class Header extends React.Component {
       //Content for logged-in user
       return (
         <div style={styles.containerRight}>
-          <StripePayments />
-          <FlatButton style={styles.navItem}><a href="/api/logout">Log Out</a></FlatButton>
+          <StripePayments/>
+          <span style={styles.navItem}>
+            Credits: {this.props.auth.credits}
+          </span>
+          <FlatButton style={styles.flatButton}>
+            <a href="/api/logout">Sign Out</a>
+          </FlatButton>
         </div>
       );
     } else if (auth === false) {
       //Content for user not logged-in
       return (
         <div style={styles.containerRight}>
-          <FlatButton style={styles.navItem}><a href="/auth/google">Login With Google</a></FlatButton>
+          <FlatButton style={styles.flatButton}>
+            <a href="/auth/google">Sign in with Google</a>
+          </FlatButton>
         </div>
       );
     }
