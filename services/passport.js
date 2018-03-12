@@ -16,23 +16,21 @@ passport.use(
     },
     //Callback to execute when authentication is successful:
     async (accessToken, refreshToken, profile, done) => {
-      console.log("Passport callback started");
+      
       try{
-        const userQuery = User.findOne({ googleId: profile.id });
-        const existingUser = await userQuery.exec();
-        console.log("findOne Query completed, existingUser:", existingUser);
+        const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
           done(null, existingUser);
         } else {
           //Creates a model instance and saves to database
           const user = await new User({ googleId: profile.id }).save();
-          console.log("new User .save query completed");
           done(null, user);
         }
       }catch(e){
-        console.log("Passport error caught:", e);
+        console.log("GoogleStrategy callback error caught:", e);
         done();
       }
+      
     }
   )
 );
