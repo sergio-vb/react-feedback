@@ -17,7 +17,8 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       console.log("Passport callback started");
       try{
-        const existingUser = await User.findOne({ googleId: profile.id });
+        const userQuery = User.findOne({ googleId: profile.id });
+        const existingUser = await userQuery.exec();
         console.log("findOne Query completed, existingUser:", existingUser);
         if (existingUser) {
           done(null, existingUser);
